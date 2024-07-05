@@ -1,0 +1,9 @@
+{
+  "llm.api_base":"https://jeevesthebutler.openai.azure.com/",
+  "llm.api_key":"672bb50e8ad54f4e955183578d3d1a4e",
+  "llm.api_type":"azure",
+  "llm.auth_mode":"api-key",
+  "llm.model":"gpt4o_leap",
+  "llm.response_format": "json_object",
+  "execution_service.kernel_mode" : "local"
+}
