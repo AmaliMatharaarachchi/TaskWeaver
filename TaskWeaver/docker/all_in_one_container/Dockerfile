@@ -47,6 +47,10 @@ RUN pip install --no-cache-dir --no-warn-script-location google-generativeai
 RUN pip install --no-cache-dir --no-warn-script-location zhipuai
 RUN pip install --no-cache-dir --no-warn-script-location dashscope
 
+
+RUN apt-get update && apt-get install -y dos2unix
+RUN dos2unix /app/entrypoint.sh
+RUN dos2unix /app/entrypoint_chainlit.sh
 ENTRYPOINT ["/app/entrypoint.sh"]
 
 
