@@ -1,0 +1,10 @@
+
+# Running the UI
+# assume you are in the TaskWeaver folder
+cd playground/UI/
+# make sure you are in playground/UI/ folder
+chainlit run app.py
+
+#Running the Backend from CLI
+# assume you are in the cloned TaskWeaver folder
+python -m taskweaver -p ./project/

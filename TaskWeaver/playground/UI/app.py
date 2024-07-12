@@ -12,7 +12,6 @@ os.chdir(os.path.dirname(__file__))
 
 try:
     import chainlit as cl
-
     print(
         "If UI is not started, please go to the folder playground/UI and run `chainlit run app.py` to start the UI",
     )
