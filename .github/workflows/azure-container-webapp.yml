@@ -37,26 +37,31 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
-          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/leap-cooee:${{ github.sha }}
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/leap-cooee:${{ github.sha }}
-
+          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/leap-cooee:latest
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/leap-cooee:latest
       - name: 'Deploy to Azure Container Instances'
         uses: 'azure/aci-deploy@v1'
         with:
           resource-group: Leap
           dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
-          image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/leap-cooee:${{ github.sha }}
+          image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/leap-cooee:latest
           registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
           registry-username: ${{ secrets.REGISTRY_USERNAME }}
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
           name: leapcontainers
           location: 'australiasoutheast'
+          ports: '8000'  # Expose port 8000
+          environment-variables: |
+            LLM_API_BASE=https://jeevesthebutler.openai.azure.com
+            LLM_API_KEY=${{ secrets.LLM_API_KEY }}
+            LLM_API_TYPE=azure
+            LLM_MODEL=gpt4o_leap
       
-      # - name: Restart web applications
-      #   uses: azure/CLI@v1
-      #   with:
-      #     inlineScript: |
-      #         az webapp restart -n dockerwebapi-prod --resource-group Leap
+      - name: Restart web applications
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+              az webapp restart -n Cooee-webapp --resource-group Leap
       - name: logout
         run: |
           az logout
