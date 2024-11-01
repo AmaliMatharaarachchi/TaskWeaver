@@ -25,5 +25,8 @@ ENV PYTHONUNBUFFERED=1
 # List files in the working directory to ensure the necessary files are copied
 RUN ls -la /app/TaskWeaver/playground/UI
 
-# Command to run the application
-CMD ["chainlit", "run", "/app/TaskWeaver/playground/UI/app.py"]
+# Set the working directory to the location where chainlit should run
+WORKDIR /app/TaskWeaver/playground/UI
+
+# Command to run the application from the correct directory
+CMD ["chainlit", "run", "app.py"]
