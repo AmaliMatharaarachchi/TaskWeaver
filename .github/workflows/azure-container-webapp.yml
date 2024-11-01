@@ -53,7 +53,7 @@ jobs:
           ports: '8000'  # Expose port 8000
           environment-variables: |
             LLM_API_BASE=https://jeevesthebutler.openai.azure.com
-            LLM_API_KEY=${{ secrets.LLM_API_KEY }}
+            LLM_API_KEY=my-key
             LLM_API_TYPE=azure
             LLM_MODEL=gpt4o_leap
       
